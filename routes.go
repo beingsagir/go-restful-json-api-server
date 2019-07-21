@@ -4,17 +4,7 @@ import (
     "net/http"
 	"github.com/gorilla/mux"
 )
- 
-// Route is for routing 
-type Route struct {
-    Name        string
-    Method      string
-    Pattern     string
-    HandlerFunc http.HandlerFunc
-}
- 
-// Routes is for routing
-type Routes []Route
+
 
 // NewRouter is for route 
 func NewRouter() *mux.Router {
@@ -36,23 +26,3 @@ func NewRouter() *mux.Router {
     return router
 }
 
-var routes = Routes{
-    Route{
-        "Index",
-        "GET",
-        "/",
-        Index,
-    },
-    Route{
-        "TodoIndex",
-        "GET",
-        "/todos",
-        TodoIndex,
-    },
-    Route{
-        "TodoShow",
-        "GET",
-        "/todos/{todoId}",
-        TodoShow,
-    },
-}

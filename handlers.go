@@ -9,23 +9,29 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// Index is default 
 func Index(w http.ResponseWriter, r *http.Request){
 	fmt.Fprintln(w, "welcome")
 }
 
-func TodoIndex(W http.ResponseWriter, r *http.Request) {
+// TodoIndex will return all
+func TodoIndex(w http.ResponseWriter, r *http.Request) {
 	todos := Todos{
 		Todo{Name: "Write presentation"},
 		Todo{Name: "Host meetup"},
 	}
 
-	if err := json.NewEncoder(W).Encode(todos); err != nil {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+    w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(todos); err != nil {
 		panic(err)
 	}
 }
 
+// TodoShow will return one
 func TodoShow(W http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	todoId := vars["todoId"]
-	fmt.Fprintln(W, "Todo show", todoId)
+	todoID := vars["todoId"]
+	fmt.Fprintln(W, "Todo show", todoID)
 }
